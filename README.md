@@ -2,6 +2,8 @@
 
 Professional marketing website for RailNex - built with React, TypeScript, and Webpack.
 
+[![RailNex WebPages Deployment](https://github.com/TheCorridor-Train-Simulator/TheCorridor-Train-Simulator.github.io/actions/workflows/static.yml/badge.svg?branch=main)](https://github.com/TheCorridor-Train-Simulator/TheCorridor-Train-Simulator.github.io/actions/workflows/static.yml)
+
 ## 🚂 About
 
 RailNex is a professional railroad simulation platform featuring:
