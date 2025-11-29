@@ -1,0 +1,104 @@
+@use './variables' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-family-base;
+  background-color: $sim-dark-bg;
+  color: $sim-text;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-heading;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: $spacer;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 2rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+  margin-bottom: $spacer;
+}
+
+a {
+  color: $sim-accent;
+  text-decoration: none;
+  transition: $transition-fast;
+  
+  &:hover {
+    color: $sim-accent-light;
+  }
+}
+
+.container {
+  @include container;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// Button styles
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: $transition-base;
+  text-decoration: none;
+  
+  &-primary {
+    background: linear-gradient(135deg, $sim-accent, $sim-accent-secondary);
+    color: white;
+    box-shadow: $shadow-md;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-lg, $shadow-glow;
+    }
+  }
+  
+  &-secondary {
+    background: transparent;
+    color: $sim-text;
+    border: 2px solid $sim-border;
+    
+    &:hover {
+      border-color: $sim-accent;
+      background: rgba($sim-accent, 0.1);
+    }
+  }
+}
+
+// Utility classes
+.text-muted {
+  color: $sim-text-muted;
+}
+
+.shadow-sm { box-shadow: $shadow-sm; }
+.shadow-md { box-shadow: $shadow-md; }
+.shadow-lg { box-shadow: $shadow-lg; }

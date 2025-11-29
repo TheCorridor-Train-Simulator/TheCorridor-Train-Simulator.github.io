@@ -1,0 +1,115 @@
+@use '../styles/variables' as *;
+
+.features-section {
+  padding: $spacer * 6 0;
+  background: $sim-dark-bg;
+  
+  @include respond-to('lg') {
+    padding: $spacer * 8 0;
+  }
+  
+  &__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacer * 4;
+    align-items: center;
+    
+    @include respond-to('lg') {
+      grid-template-columns: 1fr 1fr;
+      gap: $spacer * 6;
+    }
+  }
+  
+  &__image {
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 1rem;
+      box-shadow: $shadow-lg;
+      border: 1px solid $sim-border;
+    }
+  }
+  
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacer * 3;
+  }
+}
+
+.feature-item {
+  display: flex;
+  gap: $spacer * 1.5;
+  align-items: flex-start;
+  padding: $spacer * 2;
+  background: $sim-card-bg;
+  border-radius: 1rem;
+  border: 1px solid $sim-border;
+  transition: $transition-base;
+  
+  &:hover {
+    border-color: rgba($sim-accent, 0.3);
+    background: $sim-card-bg-light;
+    
+    .feature-item__icon {
+      transform: scale(1.1);
+      box-shadow: $shadow-glow;
+    }
+  }
+  
+  &__icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, $sim-accent, $sim-accent-secondary);
+    border-radius: 0.75rem;
+    font-size: 1.5rem;
+    color: white;
+    transition: $transition-base;
+    
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  &__content {
+    flex-grow: 1;
+  }
+  
+  &__title {
+    font-size: 1.25rem;
+    margin-bottom: $spacer * 0.75;
+    color: $sim-text;
+  }
+  
+  &__description {
+    font-size: 0.95rem;
+    color: $sim-text-muted;
+    line-height: 1.6;
+    margin-bottom: $spacer;
+  }
+  
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: $sim-accent;
+    transition: $transition-fast;
+    
+    &:hover {
+      gap: 0.75rem;
+      color: $sim-accent-light;
+    }
+    
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}

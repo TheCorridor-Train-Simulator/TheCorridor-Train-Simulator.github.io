@@ -1,0 +1,119 @@
+@use '../styles/variables' as *;
+
+.feature-cards {
+  padding: $spacer * 4 0;
+  background: $sim-darker-bg;
+  margin-top: -100px;
+  position: relative;
+  z-index: 3;
+  
+  @include respond-to('md') {
+    padding: $spacer * 6 0;
+  }
+  
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacer * 2;
+    
+    @include respond-to('md') {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include respond-to('lg') {
+      grid-template-columns: repeat(3, 1fr);
+      gap: $spacer * 3;
+    }
+  }
+}
+
+.feature-card {
+  background: $sim-card-bg;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+  border: 1px solid $sim-border;
+  transition: $transition-base;
+  display: flex;
+  flex-direction: column;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-lg, 0 0 30px rgba($sim-accent, 0.2);
+    border-color: rgba($sim-accent, 0.3);
+  }
+  
+  &__icon-wrapper {
+    position: relative;
+    padding: $spacer * 3 $spacer * 2 $spacer * 1.5;
+  }
+  
+  &__icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, $sim-accent, $sim-accent-secondary);
+    border-radius: 1rem;
+    font-size: 2rem;
+    color: white;
+    box-shadow: $shadow-md;
+    
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+  
+  &__content {
+    padding: 0 $spacer * 2 $spacer * 2;
+    flex-grow: 1;
+  }
+  
+  &__title {
+    font-size: 1.5rem;
+    margin-bottom: $spacer * 0.5;
+    color: $sim-text;
+  }
+  
+  &__subtitle {
+    font-size: 0.875rem;
+    color: $sim-accent;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: $spacer;
+  }
+  
+  &__description {
+    font-size: 1rem;
+    color: $sim-text-muted;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  
+  &__footer {
+    padding: $spacer * 1.5 $spacer * 2;
+    border-top: 1px solid $sim-border;
+  }
+  
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: $sim-accent;
+    transition: $transition-fast;
+    
+    &:hover {
+      gap: 0.75rem;
+      color: $sim-accent-light;
+    }
+    
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

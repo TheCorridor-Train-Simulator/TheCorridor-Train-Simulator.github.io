@@ -1,0 +1,68 @@
+@use 'sass:color';
+
+// Modern color scheme for professional simulation software
+$primary: #0d6efd;
+$secondary: #6c757d;
+$success: #198754;
+$warning: #ffc107;
+$danger: #dc3545;
+$info: #0dcaf0;
+
+// Professional simulation colors - darker, more technical
+$sim-dark-bg: #0a0e1a;
+$sim-darker-bg: #050810;
+$sim-card-bg: #141824;
+$sim-accent: #00d9ff; // Cyan accent for technical feel
+$sim-accent-secondary: #7b68ee; // Purple accent
+$sim-accent-light: color.adjust($sim-accent, $lightness: 10%); // Replaces lighten()
+$sim-card-bg-light: color.adjust($sim-card-bg, $lightness: 2%); // Replaces lighten()
+$sim-text: #e8eaed;
+$sim-text-muted: #9aa0a6;
+$sim-border: rgba(255, 255, 255, 0.1);
+
+// Typography
+$font-family-base: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+$font-family-heading: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+// Spacing
+$spacer: 1rem;
+$container-max-width: 1200px;
+
+// Transitions
+$transition-base: all 0.3s ease;
+$transition-fast: all 0.15s ease;
+
+// Shadows
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+$shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+$shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+$shadow-glow: 0 0 20px rgba(0, 217, 255, 0.3);
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Mixins
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == 'sm' {
+    @media (min-width: $breakpoint-sm) { @content; }
+  } @else if $breakpoint == 'md' {
+    @media (min-width: $breakpoint-md) { @content; }
+  } @else if $breakpoint == 'lg' {
+    @media (min-width: $breakpoint-lg) { @content; }
+  } @else if $breakpoint == 'xl' {
+    @media (min-width: $breakpoint-xl) { @content; }
+  }
+}
+
+@mixin container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $spacer * 2;
+  
+  @include respond-to('lg') {
+    padding: 0 $spacer * 3;
+  }
+}
