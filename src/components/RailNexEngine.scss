@@ -1,0 +1,411 @@
+@use '../styles/variables' as *;
+
+.railnex-engine {
+  background: $sim-dark-bg;
+  color: $sim-text;
+  min-height: 100vh;
+}
+
+// Hero Section
+.engine-hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $sim-darker-bg 0%, $sim-dark-bg 100%);
+  overflow: hidden;
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(0, 217, 255, 0.1) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: $spacer * 4;
+    max-width: 900px;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  &__logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: $spacer * 2;
+    filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.5));
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  &__title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: $spacer;
+    background: linear-gradient(135deg, $sim-accent, $sim-accent-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    @include respond-to('md') {
+      font-size: 5rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.5rem;
+    color: $sim-text-muted;
+    margin-bottom: $spacer * 2;
+    font-weight: 300;
+  }
+
+  &__description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: $sim-text-muted;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+
+// Engine Section
+.engine-section {
+  padding: $spacer * 6 $spacer * 2;
+
+  &--dark {
+    background: $sim-darker-bg;
+  }
+
+  &__container {
+    @include container;
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: $spacer * 4;
+    color: $sim-text;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, $sim-accent, $sim-accent-secondary);
+      margin: $spacer * 2 auto 0;
+      border-radius: 2px;
+    }
+  }
+}
+
+// Capabilities Cards
+.engine-capabilities {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacer * 2;
+
+  @include respond-to('md') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.capability-card {
+  background: $sim-card-bg;
+  border: 1px solid $sim-border;
+  border-radius: 12px;
+  padding: $spacer * 3;
+  transition: $transition-base;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0, 217, 255, 0.2);
+    border-color: rgba(0, 217, 255, 0.3);
+  }
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto $spacer * 2;
+    background: linear-gradient(135deg, $sim-accent, $sim-accent-secondary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: $shadow-glow;
+  }
+
+  &__title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: $spacer;
+    color: $sim-text;
+  }
+
+  &__description {
+    color: $sim-text-muted;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+}
+
+// Feature Groups
+.feature-group {
+  margin-bottom: $spacer * 4;
+
+  &__header {
+    h3 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: $spacer * 2;
+      color: $sim-accent;
+      padding-bottom: $spacer;
+      border-bottom: 2px solid $sim-border;
+    }
+  }
+}
+
+.feature-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacer * 2;
+
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.feature-item {
+  background: $sim-card-bg;
+  border: 1px solid $sim-border;
+  border-radius: 8px;
+  padding: $spacer * 2;
+  transition: $transition-base;
+
+  &:hover {
+    border-color: rgba(0, 217, 255, 0.3);
+    box-shadow: $shadow-md;
+  }
+
+  h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: $spacer;
+    color: $sim-accent-secondary;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: $spacer * 0.5 0;
+      padding-left: $spacer * 1.5;
+      position: relative;
+      color: $sim-text-muted;
+      line-height: 1.6;
+
+      &::before {
+        content: '▹';
+        position: absolute;
+        left: 0;
+        color: $sim-accent;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// Technical Specs
+.tech-specs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacer * 3;
+
+  @include respond-to('md') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.tech-spec-group {
+  background: $sim-card-bg;
+  border: 1px solid $sim-border;
+  border-radius: 8px;
+  padding: $spacer * 2.5;
+
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: $spacer * 1.5;
+    color: $sim-accent;
+    padding-bottom: $spacer;
+    border-bottom: 1px solid $sim-border;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: $spacer * 0.75 0;
+      color: $sim-text-muted;
+      line-height: 1.6;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      strong {
+        color: $sim-text;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Build Stats
+.build-stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $spacer * 2;
+
+  @include respond-to('sm') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include respond-to('lg') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.build-stat {
+  background: $sim-card-bg;
+  border: 1px solid $sim-border;
+  border-radius: 12px;
+  padding: $spacer * 3;
+  text-align: center;
+  transition: $transition-base;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-glow;
+    border-color: rgba(0, 217, 255, 0.3);
+  }
+
+  &__value {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, $sim-accent, $sim-accent-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: $spacer;
+  }
+
+  &__label {
+    font-size: 1rem;
+    color: $sim-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+  }
+}
+
+// Call to Action
+.engine-cta {
+  background: linear-gradient(135deg, $sim-darker-bg 0%, $sim-card-bg 100%);
+  text-align: center;
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: $spacer * 2;
+    color: $sim-text;
+  }
+
+  &__description {
+    font-size: 1.2rem;
+    color: $sim-text-muted;
+    max-width: 600px;
+    margin: 0 auto $spacer * 3;
+    line-height: 1.8;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: $spacer * 2;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+// Button Styles (if not already defined globally)
+.btn {
+  display: inline-block;
+  padding: $spacer * 1.25 $spacer * 3;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: $transition-base;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+
+  &-primary {
+    background: linear-gradient(135deg, $sim-accent, $sim-accent-secondary);
+    color: white;
+    box-shadow: $shadow-glow;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 217, 255, 0.4);
+    }
+  }
+
+  &-secondary {
+    background: transparent;
+    color: $sim-accent;
+    border: 2px solid $sim-accent;
+
+    &:hover {
+      background: rgba(0, 217, 255, 0.1);
+      transform: translateY(-2px);
+    }
+  }
+}

@@ -1,0 +1,529 @@
+@use '../styles/variables' as *;
+
+.api-documentation {
+  background: $sim-dark-bg;
+  color: $sim-text;
+  min-height: 100vh;
+}
+
+// Header
+.api-header {
+  background: linear-gradient(135deg, $sim-darker-bg 0%, $sim-dark-bg 100%);
+  padding: $spacer * 6 $spacer * 2;
+  text-align: center;
+  border-bottom: 1px solid $sim-border;
+
+  &__content {
+    @include container;
+  }
+
+  &__title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: $spacer * 1.5;
+    background: linear-gradient(135deg, $sim-accent, $sim-accent-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    @include respond-to('md') {
+      font-size: 3.5rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+    color: $sim-text-muted;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+// Main Content Area
+.api-main {
+  padding: $spacer * 4 $spacer * 2;
+
+  &__container {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacer * 3;
+
+    @include respond-to('lg') {
+      grid-template-columns: 300px 1fr;
+    }
+  }
+}
+
+// Sidebar
+.api-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: $spacer * 2;
+
+  @include respond-to('lg') {
+    position: sticky;
+    top: $spacer * 2;
+    height: fit-content;
+  }
+}
+
+// Search
+.api-search {
+  position: relative;
+
+  &__input {
+    width: 100%;
+    padding: $spacer * 1.25 $spacer * 3 $spacer * 1.25 $spacer * 1.5;
+    background: $sim-card-bg;
+    border: 1px solid $sim-border;
+    border-radius: 8px;
+    color: $sim-text;
+    font-size: 1rem;
+    transition: $transition-base;
+
+    &:focus {
+      outline: none;
+      border-color: $sim-accent;
+      box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1);
+    }
+
+    &::placeholder {
+      color: $sim-text-muted;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    right: $spacer * 1.5;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+// Filters
+.api-filters {
+  background: $sim-card-bg;
+  border: 1px solid $sim-border;
+  border-radius: 8px;
+  padding: $spacer * 2;
+
+  &__title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $sim-text;
+    margin-bottom: $spacer * 1.5;
+    padding-bottom: $spacer;
+    border-bottom: 1px solid $sim-border;
+  }
+}
+
+.filter-group {
+  margin-bottom: $spacer * 1.5;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  &__label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $sim-text-muted;
+    margin-bottom: $spacer * 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &__select {
+    width: 100%;
+    padding: $spacer * 0.75 $spacer;
+    background: $sim-darker-bg;
+    border: 1px solid $sim-border;
+    border-radius: 6px;
+    color: $sim-text;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: $transition-base;
+
+    &:focus {
+      outline: none;
+      border-color: $sim-accent;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    option {
+      background: $sim-darker-bg;
+      color: $sim-text;
+    }
+  }
+}
+
+.filter-reset {
+  width: 100%;
+  padding: $spacer $spacer * 1.5;
+  background: transparent;
+  border: 1px solid $sim-accent;
+  border-radius: 6px;
+  color: $sim-accent;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-base;
+  margin-top: $spacer * 1.5;
+
+  &:hover {
+    background: rgba(0, 217, 255, 0.1);
+  }
+}
+
+// Stats
+.api-stats {
+  background: $sim-card-bg;
+  border: 1px solid $sim-border;
+  border-radius: 8px;
+  padding: $spacer * 2;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacer * 0.5;
+  }
+
+  &__number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, $sim-accent, $sim-accent-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  &__label {
+    font-size: 0.9rem;
+    color: $sim-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+// Content Area
+.api-content {
+  min-height: 500px;
+}
+
+// Document List
+.doc-list {
+  &__empty {
+    text-align: center;
+    padding: $spacer * 6 $spacer * 2;
+
+    .empty-icon {
+      font-size: 4rem;
+      margin-bottom: $spacer * 2;
+      opacity: 0.5;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: $sim-text;
+      margin-bottom: $spacer;
+    }
+
+    p {
+      color: $sim-text-muted;
+      font-size: 1.1rem;
+    }
+  }
+
+  &__results {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacer * 2;
+  }
+}
+
+// Document Card
+.doc-card {
+  background: $sim-card-bg;
+  border: 1px solid $sim-border;
+  border-radius: 8px;
+  padding: $spacer * 2;
+  cursor: pointer;
+  transition: $transition-base;
+
+  &:hover {
+    border-color: rgba(0, 217, 255, 0.3);
+    transform: translateY(-4px);
+    box-shadow: $shadow-md;
+  }
+
+  &__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacer * 0.75;
+    margin-bottom: $spacer * 1.5;
+
+    .badge {
+      display: inline-block;
+      padding: $spacer * 0.4 $spacer * 0.9;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      &--chapter {
+        background: rgba(0, 217, 255, 0.15);
+        color: $sim-accent;
+        border: 1px solid rgba(0, 217, 255, 0.3);
+      }
+
+      &--section {
+        background: rgba(123, 104, 238, 0.15);
+        color: $sim-accent-secondary;
+        border: 1px solid rgba(123, 104, 238, 0.3);
+      }
+
+      &--system {
+        background: rgba(255, 255, 255, 0.05);
+        color: $sim-text-muted;
+        border: 1px solid $sim-border;
+      }
+    }
+  }
+
+  &__title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: $sim-text;
+    margin-bottom: $spacer;
+    line-height: 1.3;
+  }
+
+  &__excerpt {
+    color: $sim-text-muted;
+    line-height: 1.6;
+    margin-bottom: $spacer * 1.5;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__link {
+    color: $sim-accent;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: $transition-fast;
+
+    &:hover {
+      color: $sim-accent-light;
+    }
+  }
+}
+
+// Document Detail
+.doc-detail {
+  background: $sim-card-bg;
+  border: 1px solid $sim-border;
+  border-radius: 12px;
+  padding: $spacer * 3;
+
+  &__back {
+    background: transparent;
+    border: 1px solid $sim-border;
+    color: $sim-text-muted;
+    padding: $spacer * 0.75 $spacer * 1.5;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: $transition-base;
+    margin-bottom: $spacer * 2;
+
+    &:hover {
+      border-color: $sim-accent;
+      color: $sim-accent;
+    }
+  }
+
+  &__breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $spacer * 0.75;
+    margin-bottom: $spacer * 2;
+    font-size: 0.9rem;
+    color: $sim-text-muted;
+
+    .separator {
+      opacity: 0.5;
+    }
+
+    span:not(.separator) {
+      &:hover {
+        color: $sim-accent;
+      }
+    }
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $sim-text;
+    margin-bottom: $spacer * 2;
+    line-height: 1.2;
+  }
+
+  &__content {
+    margin-bottom: $spacer * 3;
+
+    p {
+      color: $sim-text-muted;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+  }
+
+  &__code {
+    background: $sim-darker-bg;
+    border: 1px solid $sim-border;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: $spacer * 3;
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: $spacer * 1.25 $spacer * 1.5;
+      background: rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid $sim-border;
+
+      &__label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: $sim-text-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      &__copy {
+        background: transparent;
+        border: 1px solid $sim-border;
+        color: $sim-accent;
+        padding: $spacer * 0.5 $spacer * 1.25;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: $transition-fast;
+
+        &:hover {
+          background: rgba(0, 217, 255, 0.1);
+          border-color: $sim-accent;
+        }
+      }
+    }
+
+    pre {
+      margin: 0;
+      padding: $spacer * 2;
+      overflow-x: auto;
+
+      code {
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: $sim-text;
+      }
+    }
+  }
+
+  &__footer {
+    padding-top: $spacer * 2;
+    border-top: 1px solid $sim-border;
+    display: flex;
+    gap: $spacer * 2;
+  }
+}
+
+// Footer
+.api-footer {
+  background: $sim-darker-bg;
+  border-top: 1px solid $sim-border;
+  padding: $spacer * 4 $spacer * 2;
+  margin-top: $spacer * 6;
+
+  &__content {
+    @include container;
+    text-align: center;
+
+    p {
+      color: $sim-text-muted;
+      line-height: 1.7;
+      font-size: 0.95rem;
+
+      strong {
+        color: $sim-text;
+      }
+
+      a {
+        color: $sim-accent;
+        text-decoration: none;
+        font-weight: 600;
+        transition: $transition-fast;
+
+        &:hover {
+          color: $sim-accent-light;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+// Buttons
+.btn {
+  display: inline-block;
+  padding: $spacer * 1.25 $spacer * 3;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: $transition-base;
+  cursor: pointer;
+  border: none;
+
+  &-primary {
+    background: linear-gradient(135deg, $sim-accent, $sim-accent-secondary);
+    color: white;
+    box-shadow: $shadow-glow;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 217, 255, 0.4);
+    }
+  }
+
+  &-secondary {
+    background: transparent;
+    color: $sim-accent;
+    border: 2px solid $sim-accent;
+
+    &:hover {
+      background: rgba(0, 217, 255, 0.1);
+      transform: translateY(-2px);
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Hero.scss';
 import heroImage from '@assets/images/IMG_0046-Enhanced-NR.webp';
 
@@ -20,8 +21,15 @@ const Hero: React.FC = () => {
           real-time physics simulation, and study-level locomotive modeling powered by a global railroad database.
         </p>
         <div className="hero__cta">
-          <button className="btn btn-primary">Learn More</button>
-          <button className="btn btn-secondary">View on GitHub</button>
+          <Link to="/railnex-engine" className="btn btn-primary">Learn More</Link>
+          <a 
+            href="https://github.com/TheCorridor-Train-Simulator/RailNex" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="btn btn-secondary"
+          >
+            View on GitHub
+          </a>
         </div>
       </div>
     </section>

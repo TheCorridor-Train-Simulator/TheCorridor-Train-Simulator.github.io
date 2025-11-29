@@ -25,20 +25,27 @@ RailNex is a professional railroad simulation platform featuring:
 RailNex-Website/
 ├── src/
 │   ├── components/        # React components
-│   │   ├── Hero.tsx
-│   │   ├── FeatureCards.tsx
-│   │   ├── FeaturesSection.tsx
-│   │   └── Footer.tsx
+│   │   ├── Hero.tsx/scss
+│   │   ├── FeatureCards.tsx/scss
+│   │   ├── FeaturesSection.tsx/scss
+│   │   ├── Footer.tsx/scss
+│   │   ├── Navigation.tsx/scss
+│   │   ├── APIDocumentation.tsx/scss
+│   │   ├── RailNexEngine.tsx/scss
+│   │   └── RailNexForge.tsx/scss
 │   ├── styles/           # Global styles and variables
-│   │   ├── _variables.scss
-│   │   └── main.scss
+│   │   ├── _variables.scss         # Design tokens
+│   │   ├── _common.scss            # ⭐ Shared components (900+ lines)
+│   │   ├── main.scss               # Global styles
+│   │   └── COMMON_STYLES_GUIDE.md  # Full documentation
 │   ├── assets/          # Images and static assets
 │   │   └── images/
-│   ├── App.tsx          # Main app component
+│   ├── App.tsx          # Main app with routing
 │   ├── index.tsx        # Entry point
 │   ├── index.html       # HTML template
 │   └── types.d.ts       # TypeScript declarations
 ├── dist/                # Build output (gitignored)
+├── QUICK_REFERENCE.md   # Common styles cheat sheet
 ├── webpack.config.js    # Webpack configuration
 ├── tsconfig.json        # TypeScript configuration
 └── package.json         # Dependencies and scripts
@@ -90,6 +97,39 @@ npm run clean
 ```
 
 ## 🎨 Design System
+
+### Common Styles System
+
+The project uses a **standardized common styles library** (`_common.scss`) to reduce code duplication and ensure consistency across all components.
+
+📖 **[Full Documentation →](src/styles/COMMON_STYLES_GUIDE.md)** | **[Quick Reference →](QUICK_REFERENCE.md)**
+
+**Key Benefits:**
+- 80-90% reduction in component SCSS
+- Guaranteed visual consistency
+- Faster development with pre-built components
+- Single source of truth for styling
+
+**Quick Example:**
+```tsx
+// Use common classes instead of writing custom SCSS
+<div className="card card--interactive">
+  <div className="icon-container icon-container--md mb-2">🚂</div>
+  <h3 className="card__title">Title</h3>
+  <p className="card__description">Description</p>
+</div>
+```
+
+**Available Components:**
+- **Layouts**: `hero-section`, `content-section`, `page-wrapper`
+- **Cards**: `card` (with `--interactive`, `--flat` modifiers)
+- **Grids**: `grid-layout--2-col/3-col/4-col/sidebar/split`
+- **Forms**: `form-input`, `form-select`, `form-label`
+- **Icons**: `icon-container--sm/md/lg` (with optional `--hover-scale`)
+- **UI**: `badge`, `tag`, `link`, `divider`, `code-block`
+- **Utilities**: Spacing (`mt-1`, `mb-2`), flex (`d-flex gap-2`), animations (`animate-fadeInUp`)
+
+See [QUICK_REFERENCE.md](QUICK_REFERENCE.md) for copy-paste examples.
 
 ### Color Scheme
 
@@ -182,15 +222,28 @@ npm run build
 
 ### Adding New Components
 
-1. Create `.tsx` file in `src/components/`
-2. Create matching `.scss` file
-3. Import and use in `App.tsx`
+1. **Check common styles first** - Use `.card`, `.grid-layout`, `.icon-container` before writing custom CSS
+2. Create `.tsx` file in `src/components/`
+3. Create `.scss` file ONLY for truly unique styles (import common: `@use '../styles/common' as *;`)
+4. Import and use in `App.tsx`
+
+**Component SCSS Template:**
+```scss
+@use '../styles/variables' as *;
+@use '../styles/common' as *;
+
+// Only add truly unique styles - use common classes in TSX!
+.my-component {
+  // Unique styles only
+}
+```
 
 ### Modifying Styles
 
-- Global variables: `src/styles/_variables.scss`
-- Component styles: Co-located with components
-- Import variables in component SCSS: `@import '../styles/variables';`
+- **Common styles**: `src/styles/_common.scss` (shared components)
+- **Design tokens**: `src/styles/_variables.scss` (colors, spacing, shadows)
+- **Component styles**: Co-located `.scss` files (use `@use '../styles/common' as *;`)
+- **Prefer common classes** over custom SCSS (see [QUICK_REFERENCE.md](QUICK_REFERENCE.md))
 
 ### Adding Images
 

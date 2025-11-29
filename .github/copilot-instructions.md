@@ -6,7 +6,7 @@ Professional marketing website for TheCorridor Train Simulator and RailNex Engin
 ## Architecture & Tech Stack
 - **Frontend**: React 18 + TypeScript
 - **Build Tool**: Webpack 5 with hot module replacement
-- **Styling**: SCSS with custom variables system (no Bootstrap - custom professional dark theme)
+- **Styling**: SCSS with custom variables system + **common styles library** (no Bootstrap - custom professional dark theme)
 - **Deployment**: GitHub Pages via automated build workflow (`.github/workflows/static.yml`)
 - **Dev Server**: Webpack Dev Server on port 3000
 
@@ -18,16 +18,23 @@ src/
     FeatureCards.tsx/scss
     FeaturesSection.tsx/scss
     Footer.tsx/scss
+    Navigation.tsx/scss
+    APIDocumentation.tsx/scss
+    RailNexEngine.tsx/scss
+    RailNexForge.tsx/scss
   styles/              # Global styles and variables
     _variables.scss    # Design tokens (colors, spacing, breakpoints)
+    _common.scss       # ⭐ Shared component styles (900+ lines)
     main.scss          # Global styles and resets
+    COMMON_STYLES_GUIDE.md  # Complete documentation
   assets/
     images/            # Images imported via Webpack
-  App.tsx              # Main app component
+  App.tsx              # Main app component with routing
   index.tsx            # Entry point
   index.html           # HTML template
   types.d.ts           # TypeScript module declarations
 dist/                  # Build output (gitignored)
+QUICK_REFERENCE.md     # Common styles cheat sheet
 webpack.config.js      # Webpack configuration (dev/prod)
 tsconfig.json          # TypeScript configuration
 ```
@@ -63,15 +70,38 @@ import '@styles/main.scss';
 ```
 
 ### SCSS Import Pattern
-Always import variables first in component SCSS:
+**IMPORTANT - Use Common Styles First!**
+
+Before writing custom CSS, check if common styles can be used:
+- Cards: Use `.card` classes instead of custom card styles
+- Grids: Use `.grid-layout--3-col` instead of custom grids
+- Icons: Use `.icon-container--md` instead of custom icon wrappers
+- Forms: Use `.form-input`, `.form-select` instead of custom inputs
+- See [COMMON_STYLES_GUIDE.md](../src/styles/COMMON_STYLES_GUIDE.md) and [QUICK_REFERENCE.md](../QUICK_REFERENCE.md)
+
+Import pattern for component SCSS:
 ```scss
-@import '../styles/variables';
+@use '../styles/variables' as *;
+@use '../styles/common' as *;  // Import common styles
 
 .component {
-  background: $sim-dark-bg;
-  @include respond-to('md') { ... }
+  // Only add styles that are TRULY unique to this component
+  // Use common classes in TSX instead of writing custom SCSS
 }
 ```
+
+**Migration from @import to @use:**
+- ✅ Use `@use '../styles/variables' as *;` (modern)
+- ❌ Don't use `@import '../styles/variables';` (deprecated)
+
+**Available Common Components:**
+- Layouts: `hero-section`, `content-section`, `page-wrapper`, `grid-layout--2-col/3-col/sidebar`
+- Cards: `card`, `card--interactive`, `card--flat` (header, body, footer)
+- Icons: `icon-container--sm/md/lg`, `icon-container--hover-scale`
+- Forms: `form-input`, `form-select`, `form-label`, `form-input--with-icon`
+- UI: `badge--primary/secondary/muted`, `tag`, `link`, `link--underline`, `divider`, `code-block`
+- Lists: `list--checkmark`, `list--arrow`
+- Utilities: `mt-1/2/3/4`, `mb-1/2/3/4`, `d-flex`, `justify-center`, `gap-1/2/3`, `animate-fadeInUp`
 
 ## Development Workflow
 
@@ -141,9 +171,21 @@ Use `@include respond-to('md') { ... }` mixin for responsive styles.
 
 ### Known Items to Address
 - Image optimization: Hero images are 10MB+ (consider WebP conversion, responsive sizes)
-- Sass warnings: Using deprecated `lighten()` - migrate to `color.adjust()` when convenient
+- ✅ ~~Sass @import deprecation~~ Fixed: All files use @use syntax
 - Links point to hash placeholders - update when real pages exist
 - Consider lazy-loading images for better performance
+
+### Pages & Routes
+**Current Pages:**
+- `/` - Home (Hero, FeatureCards, FeaturesSection, Footer)
+- `/railnex-engine` - RailNex Engine details (logo hero, features, tech specs)
+- `/railnex-forge` - RailNex Forge editor (features, capabilities, workflow)
+- `/api-documentation` - API docs (library-based filtering, 27+ code elements, search)
+
+**Navigation Component:**
+- Rendered globally in `App.tsx` (appears on all pages)
+- Sticky header with logo and nav links
+- Mobile responsive with potential for hamburger menu
 
 ### Legacy Files (Keep for Reference)
 - `index.html` (old) - Original Bootstrap Studio export
@@ -152,10 +194,12 @@ Use `@include respond-to('md') { ... }` mixin for responsive styles.
 
 ## When Adding Features
 - Use React functional components with TypeScript
-- Create co-located `.scss` file for component styles
+- **Check common styles first** - Use `.card`, `.grid-layout`, `.icon-container`, etc. before writing custom CSS
+- Create co-located `.scss` file ONLY for truly unique component styles
 - Import and use in `App.tsx` component tree
 - Follow BEM naming in SCSS (`.component__element--modifier`)
 - Use design system colors from `_variables.scss`
+- Use common classes for cards, grids, icons, forms (see COMMON_STYLES_GUIDE.md)
 - Test responsive behavior at all breakpoints (mobile, tablet, desktop)
-- Consider animations/transitions for better UX (match existing `transition-base` pattern)
+- Consider animations/transitions for better UX (match existing `transition-base` pattern or use `.animate-*` classes)
 

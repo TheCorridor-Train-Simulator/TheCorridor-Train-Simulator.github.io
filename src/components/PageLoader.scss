@@ -1,0 +1,243 @@
+@use '../styles/variables' as *;
+
+
+.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: $sim-darker-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+  animation: fadeIn 0.4s ease-out;
+  pointer-events: all;
+  /* Ensure full coverage */
+  transition: opacity 0.4s;
+
+  &--exit {
+    animation: fadeOut 0.6s ease-out forwards;
+  }
+
+  // Vertical gradient sweep slices
+  &__sweep-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &__sweep-slice {
+    flex: 1;
+    height: 100vh;
+    background: none;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        $sim-darker-bg 0%,
+        $sim-accent 40%,
+        $sim-accent-secondary 60%,
+        $sim-darker-bg 100%
+      );
+      opacity: 1;
+      animation: sweepRightFull 2s ease-in-out infinite;
+    }
+
+    // Stagger the animation for each slice
+    @for $i from 1 through 5 {
+      &:nth-child(#{$i})::before {
+        animation-delay: #{$i * 0.1}s;
+      }
+    }
+  }
+
+  // Center content
+  &__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  // Minimalist logo/spinner
+  &__logo {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__logo-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: $sim-accent;
+    border-right-color: $sim-accent;
+    animation: spinRing 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+    box-shadow: 0 0 20px rgba($sim-accent, 0.3);
+  }
+
+  &__logo-inner {
+    width: 50%;
+    height: 50%;
+    background: linear-gradient(135deg, $sim-accent, $sim-accent-secondary);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+    box-shadow: 0 0 30px rgba($sim-accent, 0.5);
+  }
+
+  // Loading text
+  &__text {
+    font-size: 1rem;
+    font-weight: 500;
+    color: $sim-text;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  &__label {
+    animation: textPulse 2s ease-in-out infinite;
+  }
+
+  // Minimal progress bar
+  &__progress {
+    width: 200px;
+    height: 2px;
+    background: rgba($sim-text, 0.1);
+    border-radius: 1px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 40%;
+    background: linear-gradient(90deg, 
+      transparent,
+      $sim-accent 50%,
+      transparent
+    );
+    animation: progressSlide 1.5s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba($sim-accent, 0.6);
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sweepRightFull {
+  0% {
+    opacity: 1;
+    transform: translateX(-100vw);
+  }
+  40% {
+    opacity: 1;
+    transform: translateX(0vw);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(0vw);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(100vw);
+  }
+}
+
+@keyframes spinRing {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes textPulse {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes progressSlide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(350%);
+  }
+}
+
+// Responsive adjustments
+@include respond-to('md') {
+  .page-loader {
+    &__logo {
+      width: 60px;
+      height: 60px;
+    }
+
+    &__text {
+      font-size: 0.875rem;
+    }
+
+    &__progress {
+      width: 150px;
+    }
+  }
+}
